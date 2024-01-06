@@ -27,6 +27,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -40,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.fcinar.playmakerapp.Destinations
+import com.fcinar.playmakerapp.R
 import kotlinx.coroutines.launch
 
 @Composable
@@ -48,6 +50,8 @@ fun LoginScreen(navController: NavController) {
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     val keyboardController = LocalSoftwareKeyboardController.current
+
+    val usernamePasswordWrongMessage = stringResource(id = R.string.username_password_wrong)
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -85,7 +89,7 @@ fun LoginScreen(navController: NavController) {
 
                     Spacer(modifier = Modifier.height(60.dp))
                     TextField(
-                        label = { Text(text = "Username") },
+                        label = { Text(text = stringResource(id = R.string.username)) },
                         value = username.value,
                         onValueChange = { username.value = it },
                         keyboardOptions = KeyboardOptions(
@@ -96,7 +100,7 @@ fun LoginScreen(navController: NavController) {
 
                     Spacer(modifier = Modifier.height(20.dp))
                     TextField(
-                        label = { Text(text = "Password") },
+                        label = { Text(text = stringResource(id = R.string.password)) },
                         value = password.value,
                         visualTransformation = PasswordVisualTransformation(),
                         keyboardOptions = KeyboardOptions(
@@ -113,7 +117,7 @@ fun LoginScreen(navController: NavController) {
                                     navController.navigate(Destinations.APP.route)
                                 } else {
                                     scope.launch {
-                                        snackbarHostState.showSnackbar("Username or Password is wrong!")
+                                        snackbarHostState.showSnackbar(usernamePasswordWrongMessage)
                                     }
                                 }
 
@@ -124,13 +128,13 @@ fun LoginScreen(navController: NavController) {
                                 .fillMaxWidth()
                                 .height(50.dp)
                         ) {
-                            Text(text = "Login")
+                            Text(text = stringResource(id = R.string.login))
                         }
                     }
 
                     Spacer(modifier = Modifier.height(20.dp))
                     ClickableText(
-                        text = AnnotatedString("Forgot password?"),
+                        text = AnnotatedString(stringResource(id = R.string.forgot_password)),
                         onClick = { },
                         style = TextStyle(
                             fontSize = 14.sp,
@@ -142,7 +146,7 @@ fun LoginScreen(navController: NavController) {
                     modifier = Modifier.fillMaxSize()
                 ) {
                     ClickableText(
-                        text = AnnotatedString("Sign up here"),
+                        text = AnnotatedString(stringResource(id = R.string.sign_up_here)),
                         modifier = Modifier
                             .align(Alignment.BottomCenter)
                             .padding(20.dp),
