@@ -4,9 +4,6 @@
     <string name="about">AboutScreen</string>
 
     <string name="username">Username</string>
-    <string name="password">Password</string>
     <string name="login">Login</string>
-    <string name="forgot_password">Forgot password?</string>
-    <string name="sign_up_here">Sign up here</string>
-    <string name="username_password_wrong">Username or password is wrong!</string>
+    <string name="at_least_6_char_enter_username">Enter at least 6 character username!</string>
 </resources>

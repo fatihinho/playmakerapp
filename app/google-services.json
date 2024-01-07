@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "774695810888",
+    "project_id": "playmakerapp-17fdb",
+    "storage_bucket": "playmakerapp-17fdb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774695810888:android:5b39d11c3cb507657a657d",
+        "android_client_info": {
+          "package_name": "com.fcinar.playmakerapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9Osd-VFrRvqtyzYszucm6W51WPK--w-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

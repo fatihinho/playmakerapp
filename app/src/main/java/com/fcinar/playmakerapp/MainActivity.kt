@@ -23,6 +23,21 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    /*val db = Firebase.firestore
+                    val user = hashMapOf(
+                        "first" to "Fatih",
+                        "last" to "Çınar",
+                        "born" to 1998,
+                    )
+                    db.collection("users")
+                        .add(user)
+                        .addOnSuccessListener { documentReference ->
+                            Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w(TAG, "Error adding document", e)
+                        }*/
+
                     AuthNavHost(navController = rememberNavController())
                 }
             }

@@ -4,9 +4,6 @@
     <string name="about">AboutScreen</string>
 
     <string name="username">Kullanıcı Adı</string>
-    <string name="password">Şifre</string>
     <string name="login">Giriş Yap</string>
-    <string name="forgot_password">Şifremi Unuttum</string>
-    <string name="sign_up_here">Kayıt Ol</string>
-    <string name="username_password_wrong">Kullanıcı adı ya da şifre yanlış!</string>
+    <string name="at_least_6_char_enter_username">En az 6 karakterlik kullanıcı adı giriniz!</string>
 </resources>

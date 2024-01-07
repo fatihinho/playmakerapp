@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
@@ -28,15 +27,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -51,7 +47,7 @@ fun LoginScreen(navController: NavController) {
     val snackbarHostState = remember { SnackbarHostState() }
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    val usernamePasswordWrongMessage = stringResource(id = R.string.username_password_wrong)
+    val enterUsernameMessage = stringResource(id = R.string.at_least_6_char_enter_username)
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -72,10 +68,6 @@ fun LoginScreen(navController: NavController) {
                 ) {
 
                     val username = remember { mutableStateOf(TextFieldValue()) }
-                    val password = remember { mutableStateOf(TextFieldValue()) }
-
-                    val initUsername = "user"
-                    val initPassword = "1234"
 
                     Text(
                         text = "PlayMakerApp",
@@ -87,37 +79,26 @@ fun LoginScreen(navController: NavController) {
                         )
                     )
 
-                    Spacer(modifier = Modifier.height(60.dp))
+                    Spacer(modifier = Modifier.height(100.dp))
                     TextField(
                         label = { Text(text = stringResource(id = R.string.username)) },
                         value = username.value,
                         onValueChange = { username.value = it },
                         keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Password,
-                            imeAction = ImeAction.Next
-                        ),
-                    )
-
-                    Spacer(modifier = Modifier.height(20.dp))
-                    TextField(
-                        label = { Text(text = stringResource(id = R.string.password)) },
-                        value = password.value,
-                        visualTransformation = PasswordVisualTransformation(),
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Password,
+                            keyboardType = KeyboardType.Text,
                             imeAction = ImeAction.Done
                         ),
-                        onValueChange = { password.value = it })
+                    )
 
                     Spacer(modifier = Modifier.height(20.dp))
                     Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
                         Button(
                             onClick = {
-                                if (username.value.text == initUsername && password.value.text == initPassword) {
+                                if (username.value.text != "" && username.value.text.length >= 6) {
                                     navController.navigate(Destinations.APP.route)
                                 } else {
                                     scope.launch {
-                                        snackbarHostState.showSnackbar(usernamePasswordWrongMessage)
+                                        snackbarHostState.showSnackbar(enterUsernameMessage)
                                     }
                                 }
 
@@ -131,33 +112,6 @@ fun LoginScreen(navController: NavController) {
                             Text(text = stringResource(id = R.string.login))
                         }
                     }
-
-                    Spacer(modifier = Modifier.height(20.dp))
-                    ClickableText(
-                        text = AnnotatedString(stringResource(id = R.string.forgot_password)),
-                        onClick = { },
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                            fontFamily = FontFamily.Default
-                        )
-                    )
-                }
-                Box(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    ClickableText(
-                        text = AnnotatedString(stringResource(id = R.string.sign_up_here)),
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .padding(20.dp),
-                        onClick = { },
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                            fontFamily = FontFamily.Default,
-                            textDecoration = TextDecoration.Underline,
-                            color = Color.Gray
-                        )
-                    )
                 }
             }
         })
