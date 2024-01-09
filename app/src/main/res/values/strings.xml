@@ -5,5 +5,5 @@
 
     <string name="username">Username</string>
     <string name="login">Login</string>
-    <string name="at_least_6_char_enter_username">Enter at least 6 character username!</string>
+    <string name="at_least_4_char_enter_username">Enter at least 4 character username!</string>
 </resources>

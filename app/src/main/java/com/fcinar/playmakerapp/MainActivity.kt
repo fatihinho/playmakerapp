@@ -11,7 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.fcinar.playmakerapp.screen.LoginScreen
+import com.fcinar.playmakerapp.screen.MainLayout
 import com.fcinar.playmakerapp.ui.theme.PlayMakerAppTheme
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,22 +25,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    /*val db = Firebase.firestore
-                    val user = hashMapOf(
-                        "first" to "Fatih",
-                        "last" to "Çınar",
-                        "born" to 1998,
-                    )
-                    db.collection("users")
-                        .add(user)
-                        .addOnSuccessListener { documentReference ->
-                            Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w(TAG, "Error adding document", e)
-                        }*/
+                    val auth = FirebaseAuth.getInstance()
+                    if (auth.currentUser?.uid != null) {
+                        MainLayout()
+                    } else {
+                        AuthNavHost(navController = rememberNavController())
 
-                    AuthNavHost(navController = rememberNavController())
+                    }
                 }
             }
         }

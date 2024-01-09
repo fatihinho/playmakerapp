@@ -1,5 +1,7 @@
 package com.fcinar.playmakerapp.screen
 
+import android.content.ContentValues
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,7 +40,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.fcinar.playmakerapp.Destinations
 import com.fcinar.playmakerapp.R
+import com.fcinar.playmakerapp.entity.User
+import com.fcinar.playmakerapp.service.UserService
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 @Composable
 @OptIn(ExperimentalComposeUiApi::class)
@@ -47,7 +53,10 @@ fun LoginScreen(navController: NavController) {
     val snackbarHostState = remember { SnackbarHostState() }
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    val enterUsernameMessage = stringResource(id = R.string.at_least_6_char_enter_username)
+    val userService = UserService()
+    val auth = FirebaseAuth.getInstance()
+
+    val enterUsernameMessage = stringResource(id = R.string.at_least_4_char_enter_username)
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -94,8 +103,26 @@ fun LoginScreen(navController: NavController) {
                     Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
                         Button(
                             onClick = {
-                                if (username.value.text != "" && username.value.text.length >= 6) {
-                                    navController.navigate(Destinations.APP.route)
+                                if (username.value.text != "" && username.value.text.length >= 4) {
+                                    auth.signInAnonymously().addOnCompleteListener {
+                                        if (it.isSuccessful) {
+                                            Log.d(ContentValues.TAG, "signInAnonymously:success")
+                                            val authUID = it.result?.user?.uid!!
+                                            val user = User(
+                                                id = UUID.randomUUID().toString(),
+                                                username = username.value.text
+                                            )
+                                            userService.saveUser(user, authUID)
+
+                                            navController.navigate(Destinations.APP.route)
+                                        } else {
+                                            Log.w(
+                                                ContentValues.TAG,
+                                                "signInAnonymously:failure",
+                                                it.exception
+                                            )
+                                        }
+                                    }
                                 } else {
                                     scope.launch {
                                         snackbarHostState.showSnackbar(enterUsernameMessage)

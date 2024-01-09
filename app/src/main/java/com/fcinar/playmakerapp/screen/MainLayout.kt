@@ -31,7 +31,7 @@ import androidx.navigation.compose.rememberNavController
 import com.fcinar.playmakerapp.AppNavHost
 import com.fcinar.playmakerapp.Destinations
 import com.fcinar.playmakerapp.R
-import com.fcinar.playmakerapp.components.TopAppBarComponent
+import com.fcinar.playmakerapp.component.TopAppBarComponent
 import kotlinx.coroutines.launch
 
 @Composable

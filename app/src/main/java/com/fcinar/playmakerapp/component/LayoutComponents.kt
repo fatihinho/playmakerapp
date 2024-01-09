@@ -1,4 +1,4 @@
-package com.fcinar.playmakerapp.components
+package com.fcinar.playmakerapp.component
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack

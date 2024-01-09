@@ -5,5 +5,5 @@
 
     <string name="username">Kullanıcı Adı</string>
     <string name="login">Giriş Yap</string>
-    <string name="at_least_6_char_enter_username">En az 6 karakterlik kullanıcı adı giriniz!</string>
+    <string name="at_least_4_char_enter_username">En az 4 karakterlik kullanıcı adı giriniz!</string>
 </resources>
