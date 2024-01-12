@@ -1,6 +1,6 @@
 package com.fcinar.playmakerapp.screen
 
-import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -44,7 +44,6 @@ import com.fcinar.playmakerapp.entity.User
 import com.fcinar.playmakerapp.service.UserService
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
-import java.util.UUID
 
 @Composable
 @OptIn(ExperimentalComposeUiApi::class)
@@ -106,20 +105,18 @@ fun LoginScreen(navController: NavController) {
                                 if (username.value.text != "" && username.value.text.length >= 4) {
                                     auth.signInAnonymously().addOnCompleteListener {
                                         if (it.isSuccessful) {
-                                            Log.d(ContentValues.TAG, "signInAnonymously:success")
+                                            Log.i(TAG, "signInAnonymously:success")
                                             val authUID = it.result?.user?.uid!!
                                             val user = User(
-                                                id = UUID.randomUUID().toString(),
+                                                id = authUID,
                                                 username = username.value.text
                                             )
-                                            userService.saveUser(user, authUID)
+                                            userService.saveUser(user)
 
                                             navController.navigate(Destinations.APP.route)
                                         } else {
                                             Log.w(
-                                                ContentValues.TAG,
-                                                "signInAnonymously:failure",
-                                                it.exception
+                                                TAG, "signInAnonymously:failure", it.exception
                                             )
                                         }
                                     }

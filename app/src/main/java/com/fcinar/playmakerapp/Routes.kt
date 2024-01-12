@@ -6,6 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.fcinar.playmakerapp.screen.AboutScreen
+import com.fcinar.playmakerapp.screen.CreatePlayerScreen
+import com.fcinar.playmakerapp.screen.CreateSquadScreen
 import com.fcinar.playmakerapp.screen.HomeScreen
 import com.fcinar.playmakerapp.screen.LoginScreen
 import com.fcinar.playmakerapp.screen.MainLayout
@@ -14,7 +16,9 @@ enum class Destinations(val route: String) {
     LOGIN("login"),
     APP("app"),
     HOME("home"),
-    ABOUT("about")
+    ABOUT("about"),
+    CREATE_PLAYER("create_player"),
+    CREATE_SQUAD("create_squad")
 }
 
 @Composable
@@ -49,10 +53,16 @@ fun AppNavHost(
         startDestination = startDestination
     ) {
         composable(Destinations.HOME.route) {
-            HomeScreen()
+            HomeScreen(navController)
         }
         composable(Destinations.ABOUT.route) {
             AboutScreen()
+        }
+        composable(Destinations.CREATE_PLAYER.route) {
+            CreatePlayerScreen()
+        }
+        composable(Destinations.CREATE_SQUAD.route) {
+            CreateSquadScreen()
         }
     }
 }

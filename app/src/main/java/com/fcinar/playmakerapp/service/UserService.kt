@@ -1,6 +1,6 @@
 package com.fcinar.playmakerapp.service
 
-import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.util.Log
 import com.fcinar.playmakerapp.entity.User
 import com.google.firebase.Firebase
@@ -10,15 +10,15 @@ class UserService {
 
     private val db = Firebase.firestore
 
-    fun saveUser(user: User, authUID: String) {
+    fun saveUser(user: User) {
         db.collection("users")
-            .document(authUID)
+            .document(user.username)
             .set(user)
             .addOnSuccessListener {
-                Log.d(ContentValues.TAG, "User added with ID: $authUID")
+                Log.i(TAG, "${user.username} added with ID: ${user.id}")
             }
             .addOnFailureListener { e ->
-                Log.w(ContentValues.TAG, "Error adding document", e)
+                Log.w(TAG, "Error adding document", e)
             }
     }
 }

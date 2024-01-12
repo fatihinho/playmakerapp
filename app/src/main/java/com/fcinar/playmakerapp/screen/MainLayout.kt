@@ -82,9 +82,7 @@ fun MainLayout() {
                     scrollBehavior = scrollBehavior,
                     scope = scope,
                     drawerState = drawerState,
-                    title = "",
-                    showBackIcon = false,
-                    navController = navController
+                    title = stringResource(id = R.string.app_name)
                 )
             },
             snackbarHost = {
