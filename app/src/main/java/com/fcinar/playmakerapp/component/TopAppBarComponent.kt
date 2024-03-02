@@ -1,28 +1,23 @@
 package com.fcinar.playmakerapp.component
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.style.TextOverflow
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import androidx.navigation.NavController
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
+@ExperimentalMaterial3Api
 fun TopAppBarComponent(
-    title: String?,
-    scope: CoroutineScope?,
-    drawerState: DrawerState?,
-    scrollBehavior: TopAppBarScrollBehavior?
+    title: String,
+    navController: NavController,
 ) {
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
@@ -31,25 +26,24 @@ fun TopAppBarComponent(
         ),
         title = {
             Text(
-                text = title!!,
+                text = title,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
         },
         navigationIcon = {
-            IconButton(onClick = {
-                scope?.launch {
-                    drawerState?.apply {
-                        if (isClosed) open() else close()
+            if (navController.previousBackStackEntry != null) {
+                IconButton(onClick = {
+                    navController.run {
+                        popBackStack()
                     }
+                }) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = "Localized description"
+                    )
                 }
-            }) {
-                Icon(
-                    imageVector = Icons.Filled.Menu,
-                    contentDescription = "Localized description"
-                )
             }
         },
-        scrollBehavior = scrollBehavior,
     )
 }

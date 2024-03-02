@@ -1,34 +1,34 @@
 package com.fcinar.playmakerapp
 
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.fcinar.playmakerapp.screen.AboutScreen
-import com.fcinar.playmakerapp.screen.CreatePlayerScreen
-import com.fcinar.playmakerapp.screen.CreateSquadScreen
 import com.fcinar.playmakerapp.screen.HomeScreen
 import com.fcinar.playmakerapp.screen.LoginScreen
-import com.fcinar.playmakerapp.screen.MainLayout
+import com.fcinar.playmakerapp.screen.player.CreatePlayerScreen
+import com.fcinar.playmakerapp.screen.player.PlayerScreen
+import com.fcinar.playmakerapp.screen.squad.CreateSquadScreen
+import com.fcinar.playmakerapp.screen.squad.SquadScreen
 
 enum class Destinations(val route: String) {
     LOGIN("login"),
     APP("app"),
     HOME("home"),
-    ABOUT("about"),
+    PLAYER("player"),
     CREATE_PLAYER("create_player"),
+    SQUAD("squad"),
     CREATE_SQUAD("create_squad")
 }
 
 @Composable
+@ExperimentalMaterial3Api
 fun AuthNavHost(
-    modifier: Modifier = Modifier,
     navController: NavHostController,
     startDestination: String = Destinations.LOGIN.route
 ) {
     NavHost(
-        modifier = modifier,
         navController = navController,
         startDestination = startDestination
     ) {
@@ -36,33 +36,35 @@ fun AuthNavHost(
             LoginScreen(navController)
         }
         composable(Destinations.APP.route) {
-            MainLayout()
+            AppNavHost(navController)
         }
     }
 }
 
 @Composable
+@ExperimentalMaterial3Api
 fun AppNavHost(
-    modifier: Modifier = Modifier,
     navController: NavHostController,
     startDestination: String = Destinations.HOME.route
 ) {
     NavHost(
-        modifier = modifier,
         navController = navController,
         startDestination = startDestination
     ) {
         composable(Destinations.HOME.route) {
             HomeScreen(navController)
         }
-        composable(Destinations.ABOUT.route) {
-            AboutScreen()
+        composable(Destinations.PLAYER.route) {
+            PlayerScreen(navController)
         }
         composable(Destinations.CREATE_PLAYER.route) {
-            CreatePlayerScreen()
+            CreatePlayerScreen(navController)
+        }
+        composable(Destinations.SQUAD.route) {
+            SquadScreen(navController)
         }
         composable(Destinations.CREATE_SQUAD.route) {
-            CreateSquadScreen()
+            CreateSquadScreen(navController)
         }
     }
 }
